@@ -3,9 +3,9 @@
   "productName": "Local Storage ES6",
   "version": "1.0.19",
   "description": "Securely store JSON data and normal data in a folder",
-  "main": "lib/storage.js",
+  "main": "dist/storage.js",
   "scripts": {
-    "compile": "babel -d lib/ src/",
+    "compile": "babel -d dist/ src/",
     "test": "cd test && node .",
     "prepublish": "npm run compile"
   },
