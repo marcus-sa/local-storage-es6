@@ -8,9 +8,6 @@ import mkdirp from 'mkdirp'
 
 export default class LocalStorage {
 
-  path: String
-  secret: String
-
   constructor(path : String, secret : String, mkdir: Boolean = true) {
     this.cachePath = path
     this.secretKey = secret
@@ -22,45 +19,35 @@ export default class LocalStorage {
   write(key: String, data, callback: Function) {
     var path = this.getPath(key)
     fs.truncate(path, 0, () => {
-      var stream = fs.createWriteStream(path, {encoding: 'utf-8'})
-      stream.on('open', () => {
-        stream.write(this.encrypt(data), (err) => {
-          if (err) {
-            throw new Error(err)
-          } else {
-            callback(data)
-          }
-          stream.end()
-        })
+      fs.writeFile(path, (err) => {
+        if(err) {
+          onError(err)
+        } else {
+          callback(data)
+        }
       })
-      stream.on('error', new Error)
     })
   }
 
   writeSync(key: String, data) {
     try {
-      var path = this.getPath(key)
+      const path = this.getPath(key)
       fs.truncate(path, 0, () => {
-        var stream = fs.createWriteStream(path, {encoding: 'utf-8'})
-        stream.on('open', () => {
-          stream.write(this.encrypt(data), (err) => {
-            if (err) throw err
-            stream.end()
-          })
-        })
-        stream.on('error', new Error)
+        fs.writeFileSync(path)
       })
     } catch(err) {
-      throw new Error(err)
+      onError(err)
     }
   }
 
   read(key: String, callback) {
-    var stream = fs.createReadStream(this.getPath(key), {encoding: 'utf-8'})
-    stream.once('readable', () => {
-      callback(this.decrypt(stream.read()))
+    fs.readFile(this.getPath(key), (err, data) => {
+      if (err) {
+        onError(err)
+      } else {
+        callback(this.decrypt(data.toString()))
+      }
     })
-    stream.on('error', new Error)
   }
 
   readSync(key: String) {
@@ -68,7 +55,7 @@ export default class LocalStorage {
       let data = fs.readFileSync(this.getPath(key))
       return this.decrypt(data)
     } catch(err) {
-      throw new Error(err)
+      onError(err)
     }
   }
 
@@ -132,7 +119,7 @@ export default class LocalStorage {
       if (!err) {
         callback()
       } else {
-        throw new Error(err)
+        onError(err)
       }
     })
   }
@@ -141,7 +128,7 @@ export default class LocalStorage {
     try {
       return fs.unlinkSync(this.getPath(key))
     } catch(err) {
-      throw new Error(err)
+      onError(err)
     }
   }
 
@@ -151,7 +138,7 @@ export default class LocalStorage {
         files.forEach(file => fs.unlinkSync(path.join(this.cachePath, file)))
         callback()
       } else {
-        throw new Error(err)
+        onError(err)
       }
     })
   }
@@ -161,7 +148,7 @@ export default class LocalStorage {
       if (!err) {
         files.forEach(file => fs.unlinkSync(path.join(this.cachePath, file)))
       } else {
-        throw new Error(err)
+        onError(err)
       }
     })
   }
@@ -171,7 +158,7 @@ export default class LocalStorage {
       if (!err) {
         callback((size / 1024 / 1024).toFixed(3))
       } else {
-        throw new Error(err)
+        onError(err)
       }
     })
   }
@@ -192,4 +179,8 @@ export default class LocalStorage {
     return isJSON(decData) ? JSON.parse(decData) : decData
   }
 
+}
+
+function onError(err) {
+  onError(err)
 }
