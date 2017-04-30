@@ -101,7 +101,7 @@ export default class LocalStorage {
     return new Promise((resolve, reject) => {
       this.isNotExpired()
         .then(() => {
-          exports.read(key, resolve)
+          this.read(key, resolve)
         })
         .catch(reject)
     })
