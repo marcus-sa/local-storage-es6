@@ -20,7 +20,7 @@ export default class LocalStorage {
 
   write(key: String, data, callback: Function) {
     var path = this.getPath(key)
-    fs.writeFile(path, {encoding: 'utf8'}, (err) => {
+    fs.writeFile(path, this.encrypt(data), 'utf8', (err) => {
       if(err) {
         onError(err)
       } else {
@@ -31,25 +31,25 @@ export default class LocalStorage {
 
   writeSync(key: String, data) {
     try {
-      fs.writeFileSync(this.getPath(key))
+      fs.writeFileSync(this.getPath(key), this.encrypt(data), 'utf8')
     } catch(err) {
       onError(err)
     }
   }
 
   read(key: String, callback) {
-    fs.readFile(this.getPath(key), {encoding: 'utf8'}, (err, data) => {
+    fs.readFile(this.getPath(key), 'utf8', (err, data) => {
       if (err) {
         onError(err)
       } else {
-        callback(this.decrypt(data.toString()))
+        callback(this.decrypt(data))
       }
     })
   }
 
   readSync(key: String) {
     try {
-      let data = fs.readFileSync(this.getPath(key))
+      let data = fs.readFileSync(this.getPath(key), 'utf8')
       return this.decrypt(data)
     } catch(err) {
       onError(err)
