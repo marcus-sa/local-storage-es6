@@ -1,7 +1,7 @@
 {
   "name": "local-storage-es6",
   "productName": "Local Storage ES6",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "description": "Securely store JSON data and normal data in a folder",
   "main": "lib/storage.js",
   "scripts": {
@@ -32,11 +32,11 @@
     "url": "https://github.com/marcus-sa/local-storage-es6"
   },
   "devDependencies": {
-    "babel-register": "*",
     "babel-cli": "*",
     "babel-core": "*",
     "babel-preset-es2015": "*",
     "babel-preset-react": "*",
-    "babel-preset-stage-0": "*"
+    "babel-preset-stage-0": "*",
+    "babel-register": "*"
   }
 }
