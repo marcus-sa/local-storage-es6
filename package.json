@@ -5,7 +5,7 @@
   "description": "Securely store JSON data and normal data in a folder",
   "main": "lib/storage.js",
   "scripts": {
-    "test": "standard && node ./test/"
+    "build": "watchify src/storage.js -t babelify -o lib/storage.js --debug --verbose"
   },
   "keywords": [
     "es2015 storage",
@@ -29,8 +29,10 @@
     "url": "https://github.com/marcus-sa/local-storage-es6"
   },
   "devDependencies": {
-    "babel-core": "*",
-    "babel-cli": "*",
-    "babel-preset-2015": "*"
+    "babelify": "*",
+    "watchify": "*",
+    "babel-preset-es2015": "*",
+    "babel-preset-stage-0": "*",
+    "babel-preset-react": "*"
   }
 }

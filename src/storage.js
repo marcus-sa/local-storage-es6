@@ -33,14 +33,14 @@ export default class PotatoCache {
           stream.end()
         })
       })
-      stream.on('error', throw new Error)
+      stream.on('error', new Error)
     })
   }
 
   writeSync(key: String, data) {
     try {
       var path = this.getPath(key)
-      fs.truncate(path 0, () => {
+      fs.truncate(path, 0, () => {
         var stream = fs.createWriteStream(path, {encoding: 'utf-8'})
         stream.on('open', () => {
           stream.write(this.encrypt(data), (err) => {
@@ -48,7 +48,7 @@ export default class PotatoCache {
             stream.end()
           })
         })
-        stream.on('error', throw new Error)
+        stream.on('error', new Error)
       })
     } catch(err) {
       throw new Error(err)
@@ -60,7 +60,7 @@ export default class PotatoCache {
     stream.once('readable', () => {
       callback(this.decrypt(stream.read()))
     })
-    stream.on('error', throw new Error)
+    stream.on('error', new Error)
   }
 
   readSync(key: String) {
