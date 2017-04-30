@@ -1,0 +1,205 @@
+<img width="100" src="https://raw.githubusercontent.com/feross/standard/master/sticker.png" />
+
+Securely store ```JSON``` data and normal data
+
+Used in [PotatoDetection](https://npmjs.com/package/potato-detection)
+
+## Installation ##
+```
+npm install --save potato-cache
+```
+
+## Setup ##
+* Require the package
+* Setup the cache path and secret key
+* Set to true if mkdirp the directory doesnt exist. **default** ```true```
+```javascript
+import LocalStorage from 'local-storage-es6'
+
+const ... = new LocalStorage(path, secret, false)
+```
+
+## API ##
+
+### write(key, data, callback) ###
+Write data to cache asynchronously and callback a function with the given data written
+
+```throws``` error
+
+```returns``` data written
+
+```javascript
+var obj = {name: 'KitKat', owner: 'Nestle'}
+LocalStorage.write('chocolate', obj, (data) => {
+  ...
+})
+```
+
+### writeSync(key, data) ###
+Write data synchronously and return the given data written
+
+```throws``` error
+
+```returns``` data written
+
+```javascript
+var obj = {name: 'KitKat', age: 21}
+var cached = LocalStorage.write('chocolate', obj)
+console.log(cached)
+```
+
+### read(key, callback) ###
+Read data asynchronously and callback a function with the data
+
+```throws``` error
+
+```returns``` data from cache
+
+```javascript
+LocalStorage.read('chocolate', (data) => {
+  ...
+})
+```
+
+### readSync(key, callback) ###
+Read data synchronously and callback a function with the data
+
+```throws``` error
+
+```returns``` data from cache
+
+```javascript
+var data = LocalStorage.readSync('chocolate')
+console.log(data)
+```
+
+### exists(key) ###
+Checks if a cache exists
+
+```returns``` promise
+
+```javascript
+LocalStorage.exists('chocolate')
+  .then(() => {
+    ...
+  })
+  .catch(() => {
+    var obj = {name: 'KitKat', owner: 'Nestle'}
+    LocalStorage.writeSync('chocolate', obj)
+  })
+```
+
+### existsThenRead(key) ###
+Checks if a cache exists, and if it does, it will return the data in the **Promise** resolve
+
+```returns``` promise and data
+
+```javascript
+LocalStorage.existsThenRead('chocoloate')
+  .then(data => {
+      ...
+  })
+  .catch(() => {
+      ...
+  })
+```
+
+### isNotExpired(key, maxAge)
+Checks if a cache exists and is not expired
+
+```maxAge``` checks if the cache is older than x minutes
+  * **default** value is 3 hours
+
+```returns``` promise
+
+```javascript
+LocalStorage.isNotExpired('chocolate')
+  .then(() => {
+    ...
+  })
+  .catch(res => {
+    console.log(res) // 'File is x minutes too old'
+    var obj = {name: 'KitKat', owner: 'Nestle'}
+    LocalStorage.writeSync('chocolate', obj)
+  })
+```
+
+### isNotExpiredThenRead(key, maxAge)
+Checks if a cache exists and is not expired then reads the data and returns it
+
+```maxAge``` checks if the cache is older than x minutes
+  * **default** value is 3 hours
+
+```returns``` promise and data
+
+```javascript
+LocalStorage.isNotExpiredThenRead('chocolate')
+  .then(data => {
+    console.log(data)
+  })
+  .catch(res => {
+    console.log(res) // 'File is x minutes too old'
+    var obj = {name: 'KitKat', owner: 'Nestle'}
+    LocalStorage.writeSync('chocolate', obj)
+  })
+```
+
+### getPath(key) ###
+```throws``` error
+
+```returns``` the given path and hashed md5 filename for the cache
+
+```javascript
+console.log(LocalStorage.getPath('chocolate'))
+```
+
+### purge(key) ###
+Deletes a cache asynchronously
+
+```throws error```
+
+```javascript
+LocalStorage.purge('chocolate', () => {
+  ...
+})
+```
+
+### purgeSync(key) ###
+Deletes a cache synchronously
+
+```throws error```
+
+```javascript
+LocalStorage.purgeSync('chocolate')
+```
+
+### trash() ###
+Clears the entire cache folder asynchronously
+
+```throws error```
+
+```javascript
+LocalStorage.trash(() => {
+  ...
+})
+```
+
+### trashSync() ###
+Clears the entire cache folder synchronously
+
+```throws error```
+
+```javascript
+LocalStorage.trashSync()
+```
+
+### getSize(callback) ###
+```returns``` the size of the cache folder in megabytes asynchronously
+
+```throws error```
+
+```javascript
+LocalStorage.getSize(size => {
+  ...
+})
+```
