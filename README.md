@@ -69,7 +69,7 @@ LocalStorage.read('chocolate', (data) => {
 })
 ```
 
-### readSync(key, callback) ###
+### readSync(key) ###
 Read data synchronously and callback a function with the data
 
 ```throws``` error
@@ -77,8 +77,8 @@ Read data synchronously and callback a function with the data
 ```returns``` data from cache
 
 ```javascript
-var data = LocalStorage.readSync('chocolate')
-console.log(data)
+const data = LocalStorage.readSync('chocolate')
+...
 ```
 
 ### exists(key) ###
@@ -143,7 +143,7 @@ Checks if a cache exists and is not expired then reads the data and returns it
 ```javascript
 LocalStorage.isNotExpiredThenRead('chocolate')
   .then(data => {
-    console.log(data)
+    ...
   })
   .catch(res => {
     console.log(res) // 'File is x minutes too old'
@@ -158,7 +158,7 @@ LocalStorage.isNotExpiredThenRead('chocolate')
 ```returns``` the given path and hashed md5 filename for the cache
 
 ```javascript
-console.log(LocalStorage.getPath('chocolate'))
+const path = LocalStorage.getPath('chocolate')
 ```
 
 ### purge(key) ###
