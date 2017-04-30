@@ -6,7 +6,7 @@
   "main": "lib/storage.js",
   "scripts": {
     "compile": "babel -d lib/ src/",
-    "test": "npm run compile && mocha --compilers js:babel-core/register",
+    "test": "cd test && node .",
     "prepublish": "npm run compile"
   },
   "keywords": [
@@ -32,11 +32,11 @@
     "url": "https://github.com/marcus-sa/local-storage-es6"
   },
   "devDependencies": {
+    "babel-register": "*",
     "babel-cli": "*",
     "babel-core": "*",
     "babel-preset-es2015": "*",
     "babel-preset-react": "*",
-    "babel-preset-stage-0": "*",
-    "mocha": "*"
+    "babel-preset-stage-0": "*"
   }
 }
