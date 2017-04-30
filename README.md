@@ -6,7 +6,7 @@ Used in [PotatoDetection](https://npmjs.com/package/potato-detection)
 
 ## Installation ##
 ```
-npm install --save potato-cache
+npm install --save local-storage-es6
 ```
 
 ## Setup ##

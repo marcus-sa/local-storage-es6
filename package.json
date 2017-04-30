@@ -8,7 +8,7 @@
     "test": "standard && node ./test/"
   },
   "keywords": [
-    "es2015 storage"
+    "es2015 storage",
     "file encryption",
     "secure storage",
     "storage encryption",
