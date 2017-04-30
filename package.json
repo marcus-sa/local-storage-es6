@@ -1,0 +1,34 @@
+{
+  "name": "local-storage-es6",
+  "productName": "Local Storage ES6",
+  "version": "1.0.0",
+  "description": "Securely store JSON data and normal data in a folder",
+  "main": "index.js",
+  "scripts": {
+    "test": "standard && node ./test/"
+  },
+  "keywords": [
+    "es2015 storage"
+    "file encryption",
+    "secure storage",
+    "storage encryption",
+    "data encryption",
+    "file caching",
+    "file storage"
+  ],
+  "author": "Marcus S. Abildskov <marcussa2000@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "crypto-js": "*",
+    "get-folder-size": "*",
+    "validator": "*",
+    "mkdirp": "*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/marcus-sa/local-storage-es6"
+  },
+  "devDependencies": {
+    "babel-preset-2015": "*"
+  }
+}
