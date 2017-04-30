@@ -1,4 +1,4 @@
-import LocalStorage from '../src/storage'
+import LocalStorage from '../lib/storage'
 
 const Storage = new LocalStorage('./storage', '1234', false)
 

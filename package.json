@@ -3,11 +3,10 @@
   "productName": "Local Storage ES6",
   "version": "1.0.7",
   "description": "Securely store JSON data and normal data in a folder",
-  "main": "lib/storage.js",
+  "main": "src/storage.js",
   "scripts": {
-    "test": "node test/bundle.js",
-    "dev": "watchify test/index.js -t babelify -o test/bundle.js --debug --verbose",
-    "build": "watchify src/storage.js -t babelify -o lib/storage.js --debug --verbose"
+    "compile": "babel -d lib/ src/",
+    "test": "npm run compile && mocha --compilers js:babel-core/register"
   },
   "keywords": [
     "es2015 storage",
@@ -21,6 +20,7 @@
   "author": "Marcus S. Abildskov <marcussa2000@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "babel-runtime": "*",
     "crypto-js": "*",
     "get-folder-size": "*",
     "validator": "*",
@@ -31,11 +31,12 @@
     "url": "https://github.com/marcus-sa/local-storage-es6"
   },
   "devDependencies": {
-    "babel-preset-es2015": "*",
     "babel-preset-react": "*",
+    "babel-preset-es2015": "*",
     "babel-preset-stage-0": "*",
     "babel-register": "^6.24.1",
-    "babelify": "*",
-    "watchify": "*"
+    "babel-core": "*",
+    "babel-cli": "*",
+    "rimraf": "*"
   }
 }
