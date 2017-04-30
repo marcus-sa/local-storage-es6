@@ -1,7 +1,7 @@
 {
   "name": "local-storage-es6",
   "productName": "Local Storage ES6",
-  "version": "1.0.20",
+  "version": "1.0.21",
   "description": "Securely store JSON data and normal data in a folder",
   "main": "dist/storage.js",
   "scripts": {
