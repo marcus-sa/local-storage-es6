@@ -20,23 +20,18 @@ export default class LocalStorage {
 
   write(key: String, data, callback: Function) {
     var path = this.getPath(key)
-    fs.truncate(path, 0, () => {
-      fs.writeFile(path, (err) => {
-        if(err) {
-          onError(err)
-        } else {
-          callback(data)
-        }
-      })
+    fs.writeFile(path, (err) => {
+      if(err) {
+        onError(err)
+      } else {
+        callback(data)
+      }
     })
   }
 
   writeSync(key: String, data) {
     try {
-      const path = this.getPath(key)
-      fs.truncate(path, 0, () => {
-        fs.writeFileSync(path)
-      })
+      fs.writeFileSync(this.getPath(key))
     } catch(err) {
       onError(err)
     }
