@@ -179,5 +179,5 @@ export default class LocalStorage {
 }
 
 function onError(err) {
-  onError(err)
+  throw new Error(err)
 }
