@@ -176,7 +176,7 @@ export default class PotatoCache {
     })
   }
 
-  function encrypt (data) {
+  encrypt(data) {
     if(typeof data === 'object') {
       data = JSON.stringify(data)
     }
@@ -185,7 +185,7 @@ export default class PotatoCache {
     return encData.toString()
   }
 
-  function decrypt(data) {
+  decrypt(data) {
     let decBytes = CryptoJS.AES.decrypt(data.toString(), this.secretKey)
     let decData = decBytes.toString(CryptoJS.enc.Utf8)
 
