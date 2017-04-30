@@ -6,7 +6,8 @@
   "main": "lib/storage.js",
   "scripts": {
     "compile": "babel -d lib/ src/",
-    "test": "npm run compile && mocha --compilers js:babel-core/register"
+    "test": "npm run compile && mocha --compilers js:babel-core/register",
+    "prepublish": "npm run compile"
   },
   "keywords": [
     "es2015 storage",

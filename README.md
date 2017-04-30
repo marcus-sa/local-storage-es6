@@ -13,8 +13,16 @@ npm install --save local-storage-es6
 * Require the package
 * Setup the cache path and secret key
 * Set to true if mkdirp the directory doesnt exist. **default** ```true```
+
+### ES6  ###
 ```javascript
 import LocalStorage from 'local-storage-es6'
+
+const ... = new LocalStorage(path, secret, false)
+```
+### CommonJS ###
+```javascript
+const LocalStorage = require('local-storage-es6').default
 
 const ... = new LocalStorage(path, secret, false)
 ```
