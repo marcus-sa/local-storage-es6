@@ -3,7 +3,7 @@
   "productName": "Local Storage ES6",
   "version": "1.0.8",
   "description": "Securely store JSON data and normal data in a folder",
-  "main": "src/storage.js",
+  "main": "lib/storage.js",
   "scripts": {
     "compile": "babel -d lib/ src/",
     "test": "npm run compile && mocha --compilers js:babel-core/register"
