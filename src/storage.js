@@ -11,9 +11,11 @@ export default class LocalStorage {
   constructor(path : String, secret : String, mkdir: Boolean = true) {
     this.cachePath = path
     this.secretKey = secret
-    fs.stat(path, (err) => {
-      if(err) mkdirp(path, console.log)
-    })
+    if (mkdir) {
+      fs.stat(path, (err) => {
+        if(err) mkdirp(path, console.log)
+      })
+    }
   }
 
   write(key: String, data, callback: Function) {
