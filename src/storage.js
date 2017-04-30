@@ -6,7 +6,7 @@ import getFolderSize from 'get-folder-size'
 import isJSON from 'validator/lib/isJSON'
 import mkdirp from 'mkdirp'
 
-export default class PotatoCache {
+export default class LocalStorage {
 
   path: String
   secret: String
