@@ -22,7 +22,7 @@ const ... = new LocalStorage(path, secret, false)
 ```
 ### CommonJS ###
 ```javascript
-const LocalStorage = require('local-storage-es6').default
+const LocalStorage = require('local-storage-es6')
 
 const ... = new LocalStorage(path, secret, false)
 ```
