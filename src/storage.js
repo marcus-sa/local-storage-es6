@@ -5,6 +5,7 @@ import CryptoJS from 'crypto-js'
 import getFolderSize from 'get-folder-size'
 import isJSON from 'validator/lib/isJSON'
 import mkdirp from 'mkdirp'
+import moment from 'moment'
 
 export default class LocalStorage {
 
@@ -82,24 +83,22 @@ export default class LocalStorage {
     return new Promise((resolve, reject) => {
       this.exists(key)
         .then(stat => {
-          let now = new Date().getTime()
-          let endTime = new Date(stat.mtime).getTime()
+          let now = moment()
+          let fileAge = moment(stat.mtime)
 
-          var diff = (now - endTime) / 1000 / 60
-
-          if (maxAge > Math.abs(Math.round(diff))) {
+          if (now.diff(fileAge, 'minutes') <= maxAge) {
             resolve()
           } else {
-            reject(new Error('File is older than ' + maxAge + ' minutes'))
+            reject(new Error(`File is x minutes too old`))
           }
         })
         .catch(reject)
     })
   }
 
-  isNotExpiredThenRead(key: String, maxAge) {
+  isNotExpiredThenRead(key: String, maxAge: Number) {
     return new Promise((resolve, reject) => {
-      this.isNotExpired()
+      this.isNotExpired(key, maxAge)
         .then(() => {
           this.read(key, resolve)
         })
