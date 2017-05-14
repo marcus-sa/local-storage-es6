@@ -1,7 +1,7 @@
 {
   "name": "local-storage-es6",
   "productName": "Local Storage ES6",
-  "version": "1.0.24",
+  "version": "1.0.25",
   "description": "Securely store JSON data and normal data in a folder",
   "main": "dist/storage.js",
   "scripts": {
@@ -21,6 +21,7 @@
   "author": "Marcus S. Abildskov <marcussa2000@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "moment": "*",
     "babel-runtime": "*",
     "crypto-js": "*",
     "get-folder-size": "*",
