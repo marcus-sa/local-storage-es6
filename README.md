@@ -5,6 +5,8 @@ Securely store ```JSON``` data and normal data
 Used in [PotatoDetection](https://npmjs.com/package/potato-detection)
 
 ## Installation ##
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/marcus-sa/local-storage-es6.svg)](https://greenkeeper.io/)
 ```
 npm install --save local-storage-es6
 ```
