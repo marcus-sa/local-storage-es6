@@ -3,24 +3,34 @@ import path from 'path'
 import md5 from 'crypto-js/md5'
 import CryptoJS from 'crypto-js'
 import getFolderSize from 'get-folder-size'
-import isJSON from 'validator/lib/isJSON'
 import mkdirp from 'mkdirp'
 import moment from 'moment'
 
 export default class LocalStorage {
 
-  constructor(path : String, secret : String, mkdir: Boolean = true) {
-    this.cachePath = path
-    this.secretKey = secret
-    if (mkdir) {
-      fs.stat(path, (err) => {
-        if(err) mkdirp(path, console.log)
+  cachePath: String
+  secretKey: String
+  encryptFileName: Boolean = true
+  encryptFileContent: Boolean = true
+
+  constructor(args: Object /*path : String, secret : String, encrypt: Boolean = true, mkdir: Boolean = true*/) {
+    this.cachePath = args.path
+    this.secretKey = args.key
+    if (args.encryptFileName === false) {
+      this.encryptFileName = false
+    }
+    if (args.encryptFileContent === false) {
+      this.encryptFileContent = false
+    }
+    if (args.mkdir) {
+      fs.stat(args.path, (err) => {
+        if(err) mkdirp(args.path, console.log)
       })
     }
   }
 
   write(key: String, data, callback: Function) {
-    var path = this.getPath(key)
+    const path = this.getPath(key)
     fs.writeFile(path, this.encrypt(data), 'utf8', (err) => {
       if(err) {
         onError(err)
@@ -50,7 +60,7 @@ export default class LocalStorage {
 
   readSync(key: String) {
     try {
-      let data = fs.readFileSync(this.getPath(key), 'utf8')
+      const data = fs.readFileSync(this.getPath(key), 'utf8')
       return this.decrypt(data)
     } catch(err) {
       onError(err)
@@ -106,8 +116,9 @@ export default class LocalStorage {
     })
   }
 
-  getPath(key: String) {
-    return path.join(this.cachePath, md5(key) + 'js')
+  getPath(key: String): String {
+    const cacheKey = this.encryptFileName ? md5(key).toString() : key
+    return path.join(this.cachePath, cacheKey)
   }
 
   purge(key: String, callback: Function) {
@@ -163,16 +174,40 @@ export default class LocalStorage {
     if(typeof data === 'object') {
       data = JSON.stringify(data)
     }
-    let encData = CryptoJS.AES.encrypt(data, this.secretKey)
 
-    return encData.toString()
+    if (this.encryptFileContent) {
+      const encData = CryptoJS.AES.encrypt(data, this.secretKey)
+
+      return encData.toString()
+    } else {
+      return data
+    }
   }
 
   decrypt(data) {
-    let decBytes = CryptoJS.AES.decrypt(data.toString(), this.secretKey)
-    let decData = decBytes.toString(CryptoJS.enc.Utf8)
+    if (this.encryptFileContent) {
+      const decryptedBytes = CryptoJS.AES.decrypt(data.toString(), this.secretKey)
+      const decryptedData = decBytes.toString(CryptoJS.enc.Utf8)
 
-    return isJSON(decData) ? JSON.parse(decData) : decData
+      return this.parse(decryptedData)
+    } else {
+      return this.parse(data)
+    }
+  }
+
+  parse(data) {
+    return this.isJSON(data) ? JSON.parse(data) : data
+  }
+
+  /**
+   * @author <https://github.com/chriso/validator.js/blob/master/src/lib/isJSON.js>
+   */
+  isJSON(data) {
+    try {
+      const obj = JSON.parse(data)
+      return !!obj && typeof obj === 'object'
+    } catch (e) { /* ignore */ }
+    return false
   }
 
 }

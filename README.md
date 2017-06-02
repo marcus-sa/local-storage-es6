@@ -10,21 +10,36 @@ npm install --save local-storage-es6
 ```
 
 ## Setup ##
-* Require the package
-* Setup the cache path and secret key
-* Set to true if mkdirp the directory doesnt exist. **default** ```true```
+* Import the package
+* ```path: String``` the path to your cache folder
+* ```key: String``` secret key as salt for encrypting
+* ```mkdir: Boolean``` set to ```true``` if the module should check if the cache folder exists, and if it doesn't it wil create the directory
+* ```encryptFileName: Boolean``` set to ```true``` if the module should encrypt the file name of each cache
+* ```encryptFileContent: Boolean``` set to ```true``` if the module should encrypt your file contents of each cache
 
 ### ES6  ###
 ```javascript
 import LocalStorage from 'local-storage-es6'
 
-const ... = new LocalStorage(path, secret, false)
+const ... = new LocalStorage({
+  path: './cache',
+  key: '1234',
+  mkdir: true,
+  encryptFileName: true,
+  encryptFileContent: false
+})
 ```
 ### CommonJS ###
 ```javascript
 const LocalStorage = require('local-storage-es6')
 
-const ... = new LocalStorage(path, secret, false)
+const ... = new LocalStorage({
+  path: './cache',
+  key: '1234',
+  mkdir: true,
+  encryptFileName: true,
+  encryptFileContent: false
+})
 ```
 
 ## API ##

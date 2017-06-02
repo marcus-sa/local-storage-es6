@@ -1,7 +1,7 @@
 {
   "name": "local-storage-es6",
   "productName": "Local Storage ES6",
-  "version": "1.0.26",
+  "version": "1.0.27",
   "description": "Securely store JSON data and normal data in a folder",
   "main": "dist/storage.js",
   "scripts": {
@@ -25,8 +25,7 @@
     "babel-runtime": "*",
     "crypto-js": "*",
     "get-folder-size": "*",
-    "mkdirp": "*",
-    "validator": "*"
+    "mkdirp": "*"
   },
   "repository": {
     "type": "git",

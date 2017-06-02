@@ -1,10 +1,15 @@
 import LocalStorage from '../src/storage'
 
-const Storage = new LocalStorage('./storage', '1234', false)
+const Storage = new LocalStorage({
+  path: './storage',
+  key: '1234',
+  mkdir: true,
+  encryptFileName: true,
+  encryptFileContent: false
+})
 
-Storage.isNotExpiredThenRead('chocolate', 1) // 1 minute
+Storage.existsThenRead('chocolate') // 1 minute
   .then(console.log)
   .catch(() => {
-    console.log("works")
     Storage.writeSync('chocolate', {brand: 'KitKat', company: 'Nestle'})
   })
