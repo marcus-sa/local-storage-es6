@@ -24,7 +24,7 @@
     "moment": "*",
     "babel-runtime": "*",
     "crypto-js": "*",
-    "get-folder-size": "*",
+    "get-folder-size": "1.0.0",
     "mkdirp": "*"
   },
   "repository": {
