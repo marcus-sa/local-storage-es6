@@ -21,7 +21,7 @@
   "author": "Marcus S. Abildskov <marcussa2000@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "moment": "*",
+    "moment": ">=2.22.2",
     "babel-runtime": "*",
     "crypto-js": "*",
     "get-folder-size": "*",
