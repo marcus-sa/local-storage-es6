@@ -38,6 +38,6 @@
     "babel-preset-react": "*",
     "babel-preset-stage-0": "*",
     "babel-register": "*",
-    "babel-plugin-add-module-exports": "*"
+    "babel-plugin-add-module-exports": ">=0.3.1"
   }
 }
